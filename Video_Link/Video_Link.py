@@ -15,6 +15,7 @@ GPIO.setwarnings(False)
 GPIO.setup(pinLED, GPIO.OUT)
 GPIO.setup(pinBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 # das ist ein test für ein Update
+# das ist ein weiter test für ein update
 
 serial = i2c(port=1,address=0x3D)
 device = ssd1327(serial)
