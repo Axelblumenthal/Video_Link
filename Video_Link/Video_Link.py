@@ -9,10 +9,12 @@ import RPi.GPIO as GPIO
 import asyncio
 import threading
 pinLED = 25
+pinRED = 24
 pinBUTTON = 20
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(pinLED, GPIO.OUT)
+GPIO.setup(pinRED, GPIO.OUT)
 GPIO.setup(pinBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 # das ist ein test für ein Update
 # das ist ein weiter test für ein update
@@ -20,6 +22,7 @@ GPIO.setup(pinBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 serial = i2c(port=1,address=0x3D)
 device = ssd1327(serial)
 count =0
+
 
 async def blink_short():
     while True:
@@ -43,10 +46,21 @@ async def blink_middle():
         GPIO.output(pinLED, GPIO.LOW)
         await asyncio.sleep(1.5)
         
+async def blink_danger():
+    while True:
+        GPIO.output(pinRED, GPIO.HIGH)
+        await asyncio.sleep(0.01)
+        GPIO.output(pinRED, GPIO.LOW)
+        await asyncio.sleep(0.05)
+        GPIO.output(pinRED, GPIO.HIGH)
+        await asyncio.sleep(0.01)
+        GPIO.output(pinRED, GPIO.LOW)
+        await asyncio.sleep(1)
+        
 def start_loop():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    loop.run_until_complete(blink_short())
+    loop.run_until_complete(blink_danger())
     
     
     
