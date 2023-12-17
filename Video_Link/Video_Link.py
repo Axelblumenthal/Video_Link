@@ -81,7 +81,7 @@ while True:
     
 
     buttonState =GPIO.input(pinBUTTON)
-    if buttonState == False:
+    if buttonState == True:
         page = +1
         
 
