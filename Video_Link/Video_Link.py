@@ -83,7 +83,7 @@ while True:
     
     if GPIO.input(pinBUTTON) == GPIO.HIGH:
         print("Button was pushed!")
-        page = +1
+        page = page +1
     
    
         
