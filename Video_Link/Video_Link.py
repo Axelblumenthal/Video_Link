@@ -92,7 +92,7 @@ while True:
     with canvas(device) as draw:
         
         #GPIO.output(pinLED,GPIO.HIGH)
-        time.sleep(1)
+        #time.sleep(1)
         draw.rectangle(device.bounding_box, outline="white",fill="black")
        # draw.rectangle((0 ,0,count,count),outline="white",fill="red")
         #draw.ellipse((64-count,64-count,64+count,64+count),outline="black",fill="white")
