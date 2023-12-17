@@ -82,6 +82,7 @@ while True:
     curr_gp_times =os.times()
     
     button.wait_for_press()
+    print("Test")
 
         
 
