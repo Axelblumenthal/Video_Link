@@ -117,15 +117,16 @@ while True:
     RSSI = subprocess.check_output(cmd, shell = True )
     curr_gp_times =os.times()
     
-    if GPIO.input(pinBUTTON) == GPIO.HIGH:
+    while( GPIO.input(pinBUTTON) == GPIO.HIGH):
         print("Button was pushed!")
         page = page +1
         mainpage()
         
         
-    if GPIO.input(pinBUTTONminus) == GPIO.HIGH:
+    while( GPIO.input(pinBUTTONminus) == GPIO.HIGH):
         print("Button!")
         page = page -1
+        infopage()
     
    
         
