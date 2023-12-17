@@ -60,7 +60,7 @@ async def blink_danger():
 def start_loop():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    loop.run_until_complete(blink_danger())
+    loop.run_until_complete(blink_danger(),blink_short())
     
     
     
