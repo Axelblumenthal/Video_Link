@@ -71,7 +71,7 @@ async_thread =threading.Thread(target=start_loop)
 async_thread.start()
 
 
-
+page =0
 while True:
     cmd = "hostname -I | cut -d\' \' -f1"
     IP = subprocess.check_output(cmd, shell = True )
@@ -83,6 +83,7 @@ while True:
     
     if GPIO.input(pinBUTTON) == GPIO.HIGH:
         print("Button was pushed!")
+        page = +1
     
    
         
