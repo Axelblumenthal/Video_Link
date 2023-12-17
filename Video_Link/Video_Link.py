@@ -16,7 +16,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(pinLED, GPIO.OUT)
 GPIO.setup(pinRED, GPIO.OUT)
-GPIO.setup(pinButton, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(pinBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # das ist ein test für ein Update
 # das ist ein weiter test für ein update
