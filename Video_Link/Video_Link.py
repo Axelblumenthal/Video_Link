@@ -88,7 +88,7 @@ while True:
         page = page +1
         
     if GPIO.input(pinBUTTONminus) == GPIO.HIGH:
-        print("Button was pushed!")
+        print("Button!")
         page = page -1
     
    
