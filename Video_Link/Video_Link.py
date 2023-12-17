@@ -68,7 +68,7 @@ def start_loop():
 async_thread =threading.Thread(target=start_loop)
 async_thread.start()
 
-
+page = 0
 
 while True:
     cmd = "hostname -I | cut -d\' \' -f1"
@@ -80,7 +80,11 @@ while True:
     curr_gp_times =os.times()
     
 
-  
+    buttonState =GPIO.input(pinBUTTON)
+    if buttonState == False:
+        page = +1
+        
+
     
     with canvas(device) as draw:
         
@@ -95,7 +99,7 @@ while True:
         draw.text((5,15),"Temp: "+str(Temp,'utf-8'), fill=255)
         rssi_short = int(str(RSSI,'utf-8')[:2])
         draw.text((5,25),"RSSI: "+str(RSSI,'utf-8')[:6], fill=255)
-        
+        draw.text((5,35),"Page"+page,fill=255)
         
         if pinBUTTON == GPIO.HIGH:
             print("Button test")
