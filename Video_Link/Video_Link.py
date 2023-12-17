@@ -24,7 +24,7 @@ count =0
 async def blink_short():
     while True:
         GPIO.output(pinLED, GPIO.HIGH)
-        await asyncio.sleep(1)
+        await asyncio.sleep(0.01)
         GPIO.output(pinLED, GPIO.LOW)
         await asyncio.sleep(0.05)
         GPIO.output(pinLED, GPIO.HIGH)
