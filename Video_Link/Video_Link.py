@@ -26,6 +26,7 @@ count =0
 
 async def blink_short():
     while True:
+        await asyncio.sleep(0.1)
         GPIO.output(pinLED, GPIO.HIGH)
         await asyncio.sleep(0.01)
         GPIO.output(pinLED, GPIO.LOW)
@@ -78,6 +79,7 @@ while True:
     RSSI = subprocess.check_output(cmd, shell = True )
     curr_gp_times =os.times()
     
+
   
     
     with canvas(device) as draw:
@@ -97,5 +99,7 @@ while True:
         
         if pinBUTTON == GPIO.HIGH:
             print("Button test")
+      
+
 
     
