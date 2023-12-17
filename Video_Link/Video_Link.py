@@ -81,9 +81,7 @@ while True:
     RSSI = subprocess.check_output(cmd, shell = True )
     curr_gp_times =os.times()
     
-    button.wait_for_press()
-    print("Test")
-
+    button.when_pressed = print("Test")
         
 
     
