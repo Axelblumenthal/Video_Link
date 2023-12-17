@@ -14,7 +14,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(pinLED, GPIO.OUT)
 GPIO.setup(pinBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-
+# das ist ein test für ein Update
 
 serial = i2c(port=1,address=0x3D)
 device = ssd1327(serial)
@@ -23,7 +23,7 @@ count =0
 async def blink_short():
     while True:
         GPIO.output(pinLED, GPIO.HIGH)
-        await asyncio.sleep(0.01)
+        await asyncio.sleep(1)
         GPIO.output(pinLED, GPIO.LOW)
         await asyncio.sleep(0.05)
         GPIO.output(pinLED, GPIO.HIGH)
