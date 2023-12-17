@@ -82,10 +82,7 @@ while True:
     curr_gp_times =os.times()
     
     button.wait_for_press()
-    print("Button Has been presselt")
-    buttonState =GPIO.input(pinBUTTON)
-    if buttonState == True:
-        page = +1
+
         
 
     
