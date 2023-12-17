@@ -81,7 +81,7 @@ while True:
     RSSI = subprocess.check_output(cmd, shell = True )
     curr_gp_times =os.times()
     
-    if GPIO.input(pinButton) == GPIO.HIGH:
+    if GPIO.input(pinBUTTON) == GPIO.HIGH:
         print("Button was pushed!")
     
    
