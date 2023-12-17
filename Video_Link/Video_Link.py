@@ -12,11 +12,13 @@ import threading
 pinLED = 25
 pinRED = 24
 pinBUTTON = 20
+pinBUTTONminus = 21
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(pinLED, GPIO.OUT)
 GPIO.setup(pinRED, GPIO.OUT)
 GPIO.setup(pinBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(pinBUTTONminus, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # das ist ein test für ein Update
 # das ist ein weiter test für ein update
@@ -84,6 +86,10 @@ while True:
     if GPIO.input(pinBUTTON) == GPIO.HIGH:
         print("Button was pushed!")
         page = page +1
+        
+    if GPIO.input(pinBUTTONminus) == GPIO.HIGH:
+        print("Button was pushed!")
+        page = page -1
     
    
         
@@ -92,7 +98,7 @@ while True:
     with canvas(device) as draw:
         
         #GPIO.output(pinLED,GPIO.HIGH)
-        #time.sleep(1)
+        time.sleep(0.1)
         draw.rectangle(device.bounding_box, outline="white",fill="black")
        # draw.rectangle((0 ,0,count,count),outline="white",fill="red")
         #draw.ellipse((64-count,64-count,64+count,64+count),outline="black",fill="white")
