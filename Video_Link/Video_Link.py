@@ -12,11 +12,11 @@ import threading
 pinLED = 25
 pinRED = 24
 pinBUTTON = 20
-button =Button(20)
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(pinLED, GPIO.OUT)
 GPIO.setup(pinRED, GPIO.OUT)
+GPIO.setup(pinButton, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # das ist ein test für ein Update
 # das ist ein weiter test für ein update
@@ -70,7 +70,7 @@ def start_loop():
 async_thread =threading.Thread(target=start_loop)
 async_thread.start()
 
-page = 0
+
 
 while True:
     cmd = "hostname -I | cut -d\' \' -f1"
@@ -81,7 +81,10 @@ while True:
     RSSI = subprocess.check_output(cmd, shell = True )
     curr_gp_times =os.times()
     
-    button.when_pressed = print("Test")
+    if GPIO.input(pinButton) == GPIO.HIGH:
+        print("Button was pushed!")
+    
+   
         
 
     
