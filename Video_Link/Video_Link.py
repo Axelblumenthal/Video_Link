@@ -6,16 +6,18 @@ import time
 import subprocess
 import os
 import RPi.GPIO as GPIO
+from gpiozero import Button
 import asyncio
 import threading
 pinLED = 25
 pinRED = 24
 pinBUTTON = 20
+button =Button(20)
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(pinLED, GPIO.OUT)
 GPIO.setup(pinRED, GPIO.OUT)
-GPIO.setup(pinBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
 # das ist ein test für ein Update
 # das ist ein weiter test für ein update
 
@@ -79,7 +81,8 @@ while True:
     RSSI = subprocess.check_output(cmd, shell = True )
     curr_gp_times =os.times()
     
-
+    button.wait_for_press()
+    print("Button Has been presselt")
     buttonState =GPIO.input(pinBUTTON)
     if buttonState == True:
         page = +1
