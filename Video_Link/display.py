@@ -7,7 +7,7 @@ import time
 import subprocess
 import os
 import RPi.GPIO as GPIO
-from  gpiozero import Button
+from   gpiozero import Button
 import asyncio
 import threading
 
@@ -16,13 +16,16 @@ import threading
 serial = i2c(port=1,address=0x3D)
 device = ssd1327(serial)
 
+#
+
+font_path = "/home/blume/Video_Link/Video_Link/arial.ttf"
 
 ############################### Anzeigefunktionen und Symbole ######################################
 
 # Zeigt akuell verbundene Geräte an
 def devices(draw):
     font_size = 15
-    font = ImageFont.truetype("/Video_Link/data/arial.ttf",font_size)
+    font = ImageFont.truetype(font_path,font_size)
     draw.text((10,60),"no device !",font = font,fill="white")
     
 
@@ -31,7 +34,7 @@ def devices(draw):
 def time(draw):
     font_size = 15
     #arial_font = ImageFont.load_default(         )
-    font = ImageFont.truetype("/home/blume/Desktop/arial.ttf",font_size)
+    font = ImageFont.truetype(font_path,font_size)
     draw.text((10,40),"13:50",font = font,fill="white")
     
 

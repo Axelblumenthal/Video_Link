@@ -6,10 +6,11 @@ import time
 import subprocess
 import os
 import RPi.GPIO as GPIO
-from  gpiozero import Button
+from   gpiozero import Button
 import asyncio
 import threading
 
+import display
 
 
 pinLED = 25
@@ -108,6 +109,7 @@ async_thread.start()
 
 page =0
 while True:
+    display.mainpage()
     cmd = "hostname -I | cut -d\' \' -f1"
     IP = subprocess.check_output(cmd, shell = True )
     cmd = "vcgencmd measure_temp |cut -f 2 -d '='"
