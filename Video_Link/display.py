@@ -1,19 +1,16 @@
-from luma.core.interface.serial import i2c
+ï»¿from luma.core.interface.serial import i2c
 from luma.core.interface.parallel import bitbang_6800
 from luma.core.render import canvas
 from luma.oled.device import ssd1327
 from PIL import ImageFont
-
 import time
 import subprocess
 import os
-
 import RPi.GPIO as GPIO
 from   gpiozero import Button
-
 import asyncio
 import threading
-
+from datetime import datetime
 
 #Display Einrichten
 serial = i2c(port=1,address=0x3D)
@@ -22,37 +19,31 @@ device = ssd1327(serial)
 #
 
 font_path = "/home/blume/Video_Link/Video_Link/arial.ttf"
+            #/home/blume/Video_Link/Video_Link/arial.ttf
 
 ############################### Anzeigefunktionen und Symbole ######################################
 
-def get_info(print_debug):
-    
-    cmd = "hostname -I | cut -d\' \' -f1"
-    IP = subprocess.check_output(cmd, shell = True )
-    cmd = "vcgencmd measure_temp |cut -f 2 -d '='"
-    Temp = subprocess.check_output(cmd, shell = True )
-    cmd = "iwconfig wlan0 | grep Quality | cut -d '=' -f2"
-    RSSI = subprocess.check_output(cmd, shell = True )
-    
-    if print_debug == True:
-        print("RSSI: "+str(RSSI,'utf-8')[:2] + "    IP: " + str(IP,'utf-8') + " Temp: "+str(Temp,'utf-8') )
-    time.sleep(2)
-    return IP,Temp,RSSI
-
-# Zeigt akuell verbundene Geräte an
+# Zeigt akuell verbundene GerÐ´te an
 def devices(draw):
     font_size = 15
-    font = ImageFont.truetype(font_path,font_size)
-    draw.text((10,60),"no device !",font = font,fill="white")
+    font = ImageFont.truetype("/home/blume/Video_Link/Video_Link/arial.ttf",font_size)
+    draw.text((25,60),"no device !",font = font,fill="white")
     
 
 
 # Zeigt aktuelle Uhrzeit an
 def time(draw):
+	
+ 
+	# storing the current time in the variable
+	c = datetime.now()
+
+	# Displays Time
+	current_time = c.strftime('%H:%M:%S')
+	print('Current Time is:', current_time)
     font_size = 15
-    #arial_font = ImageFont.load_default(         )
-    font = ImageFont.truetype(font_path,font_size)
-    draw.text((10,40),"13:50",font = font,fill="white")
+    font = ImageFont.truetype("arial.ttf",font_size)
+    draw.text((40,40),"13:50",font = font,fill="white")
     
 
 def network_rssi(draw,percent):
@@ -86,22 +77,35 @@ def battery(draw,percent): #TODO Bei unter 20% Blinken
         print("Low Battery !")
         draw.rectangle((4,4,13,13), outline="white",fill="white")    
         
-# Zeigt ein rechteck als menüführung an,         
+# Zeigt ein rechteck als menÑŒfÑŒhrung an,         
 def menue_rect(draw,number): 
     draw.rectangle((0,32*number,128,32+(32*number)),outline="white", fill=None)
     return 0
+
+def menue_sidebar(draw):
+    bar_height = 12
+    font_size = 12
+    font = ImageFont.truetype("/home/blume/Video_Link/Video_Link/arial.ttf",font_size)
     
+    draw.rectangle((0,127- bar_height,42,127),outline ="white",fill=None)
+    draw.text((2,128 - bar_height),"INFO",font = font,fill="white")
+
+    draw.rectangle((42,127 - bar_height,84,127),outline ="white",fill=None)
+    draw.text((43 ,128 - bar_height),"HOME",font = font,fill="white")
+
+    draw.rectangle((84,127 - bar_height,127,127),outline ="white",fill=None)
+    draw.text((85,128 - bar_height),"SETTINGS",font = font,fill="white")
             
-############################## Bildschirme und Menüführung ###################################
+############################## Bildschirme und MenÑŒfÑŒhrung ###################################
 def mainpage():
-    #print("Mainpage")
+    print("Mainpage")
     with canvas(device) as draw:
         time(draw) # Zeit 
         battery(draw,95) # Batterie oben rechts 
         devices(draw) 
         network_rssi(draw,65)
-        # Netzqualtität
-     
+        menue_sidebar(draw)
+    
 def infopage():
     
     with canvas(device) as draw:
