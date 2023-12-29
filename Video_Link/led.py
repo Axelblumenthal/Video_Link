@@ -1,6 +1,6 @@
-
-
-
+import RPi.GPIO as GPIO
+import asyncio
+import threading
 
 pinLED = 25
 pinRED = 24
