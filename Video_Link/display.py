@@ -98,6 +98,7 @@ def mainpage():
         time(draw) # Zeit 
         battery(draw,95) # Batterie oben rechts 
         devices(draw) 
+        network_rssi(draw,65)
         # Netzqualtität
      
 def infopage():
