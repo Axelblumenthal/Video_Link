@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import time
 
 pinBUTTON = 12
 pinBUTTONminus = 16
