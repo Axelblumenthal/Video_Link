@@ -21,7 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="button.py" />
     <Compile Include="display.py" />
+    <Compile Include="led.py" />
     <Compile Include="Video_Link.py" />
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@ from luma.oled.device import ssd1327
 import time
 import subprocess
 import os
-import RPi.GPIO as GPIO
+
 from   gpiozero import Button
 import asyncio
 import threading
@@ -34,24 +34,6 @@ GPIO.setup(pinBus, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(pinBuss, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 
-count =0
-
-def mainpage():
-       with canvas(device) as draw:
-        
-        #GPIO.output(pinLED,GPIO.HIGH)
-        time.sleep(0.1)
-        draw.rectangle(device.bounding_box, outline="white",fill="black")
-       # draw.rectangle((0 ,0,count,count),outline="white",fill="red")
-        #draw.ellipse((64-count,64-count,64+count,64+count),outline="black",fill="white")
-        #draw.ellipse((64-count,32,count,count),outline ="white",fill="black")
-        draw.text((10,5),"Main Page", fill="white")
-        
-       # draw.text((5, 5), "IP: " + str(IP,'utf-8'), fill=255)
-       # draw.text((5,15),"Temp: "+str(Temp,'utf-8'), fill=255)
-       # rssi_short = int(str(RSSI,'utf-8')[:2])
-        draw.text((5,25),"RSSI: "+str(RSSI,'utf-8')[:6], fill=255)
-        draw.text((5,35),"Page"+str(page),fill=255)
         
 def infopage():
     with canvas(device) as draw:
