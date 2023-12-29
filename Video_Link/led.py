@@ -8,6 +8,13 @@ pinLED = 25
 pinRED = 24
 pinD = 23
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+
+GPIO.setup(pinLED, GPIO.OUT)
+GPIO.setup(pinRED, GPIO.OUT)
+GPIO.setup(pinD, GPIO.OUT)
 
 async def blink_short():
     while True:
