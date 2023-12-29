@@ -3,11 +3,14 @@ from luma.core.interface.parallel import bitbang_6800
 from luma.core.render import canvas
 from luma.oled.device import ssd1327
 from PIL import ImageFont
+
 import time
 import subprocess
 import os
+
 import RPi.GPIO as GPIO
 from   gpiozero import Button
+
 import asyncio
 import threading
 
@@ -21,6 +24,20 @@ device = ssd1327(serial)
 font_path = "/home/blume/Video_Link/Video_Link/arial.ttf"
 
 ############################### Anzeigefunktionen und Symbole ######################################
+
+def get_info(print_debug):
+    
+    cmd = "hostname -I | cut -d\' \' -f1"
+    IP = subprocess.check_output(cmd, shell = True )
+    cmd = "vcgencmd measure_temp |cut -f 2 -d '='"
+    Temp = subprocess.check_output(cmd, shell = True )
+    cmd = "iwconfig wlan0 | grep Quality | cut -d '=' -f2"
+    RSSI = subprocess.check_output(cmd, shell = True )
+    
+    if print_debug == True:
+        print("RSSI: "+str(RSSI,'utf-8')[:2] + "    IP: " + str(IP,'utf-8') + " Temp: "+str(Temp,'utf-8') )
+    time.sleep(2)
+    return IP,Temp,RSSI
 
 # Zeigt akuell verbundene Geräte an
 def devices(draw):
@@ -76,21 +93,29 @@ def menue_rect(draw,number):
             
 ############################## Bildschirme und Menüführung ###################################
 def mainpage():
-    print("Mainpage")
+    #print("Mainpage")
     with canvas(device) as draw:
         time(draw) # Zeit 
         battery(draw,95) # Batterie oben rechts 
         devices(draw) 
         # Netzqualtität
      
+def infopage():
+    
+    with canvas(device) as draw:
+        draw.text((5, 5), "IP: " + str(IP,'utf-8'), fill=255)
+        draw.text((5,15),"Temp: "+str(Temp,'utf-8'), fill=255)
+        rssi_short = int(str(RSSI,'utf-8')[:2])
+        draw.text((5,25),"RSSI: "+str(RSSI,'utf-8')[:6], fill=255)
+        draw.text((5,35),"Page"+str(page),fill=255)
     
 
 def setting():
-    print("Settings")
-    menue_number = 1
+   # print("Settings")
+    #menue_number = 1
     
-    with canvas(device) as draw:
-        menue_rect(draw,menue_number)
+    #with canvas(device) as draw:
+    #   menue_rect(draw,menue_number)
         
     return 0
 

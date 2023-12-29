@@ -15,14 +15,23 @@ import display
 
 pinLED = 25
 pinRED = 24
-pinBUTTON = 20
-pinBUTTONminus = 21
+pinD = 23
+
+pinBUTTON = 12
+pinBUTTONminus = 16
+pinBus = 20
+pinBuss = 21
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
+
 GPIO.setup(pinLED, GPIO.OUT)
 GPIO.setup(pinRED, GPIO.OUT)
+GPIO.setup(pinD, GPIO.OUT)
 GPIO.setup(pinBUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(pinBUTTONminus, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(pinBus, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(pinBuss, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 
 count =0
@@ -96,10 +105,21 @@ async def blink_danger():
         GPIO.output(pinRED, GPIO.LOW)
         await asyncio.sleep(1)
         
+async def blink_ok():
+    while True:
+        GPIO.output(pinD, GPIO.HIGH)
+        await asyncio.sleep(0.1)
+        GPIO.output(pinD, GPIO.LOW)
+        await asyncio.sleep(0.5)
+        GPIO.output(pinD, GPIO.HIGH)
+        await asyncio.sleep(0.01)
+        GPIO.output(pinD, GPIO.LOW)
+        await asyncio.sleep(1)
+        
 def start_loop():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    loop.run_until_complete(asyncio.gather(blink_danger(), blink_short()))
+    loop.run_until_complete(asyncio.gather(blink_danger(), blink_ok(),blink_short()))
     
     
     
@@ -110,33 +130,40 @@ async_thread.start()
 page =0
 while True:
     display.mainpage()
+    display.get_info(True) # print debug data on screen
     cmd = "hostname -I | cut -d\' \' -f1"
     IP = subprocess.check_output(cmd, shell = True )
     cmd = "vcgencmd measure_temp |cut -f 2 -d '='"
     Temp = subprocess.check_output(cmd, shell = True )
     cmd = "iwconfig wlan0 | grep Quality | cut -d '=' -f2"
     RSSI = subprocess.check_output(cmd, shell = True )
-    curr_gp_times =os.times()
+    
     
     while( GPIO.input(pinBUTTON) == GPIO.HIGH):
-        print("Button was pushed!")
+        print("Button 4")
         page = page +1
-        mainpage()
+        time.sleep(0.2)
+        #mainpage()
         
         
     while( GPIO.input(pinBUTTONminus) == GPIO.HIGH):
-        print("Button!")
+        print("Button 3")
         page = page -1
-        infopage()
+        time.sleep(0.2),
+       # infopage()
+               
+    while( GPIO.input(pinBus) == GPIO.HIGH):
+        print("Button 2")
+        page = page -1
+        time.sleep(0.2),
+       # infopage()
+               
+    while( GPIO.input(pinBuss) == GPIO.HIGH):
+        print("Button 1")
+        page = page -1
+        time.sleep(0.2),
+       # infopage()
     
-   
-        
-
-    
-
-        
-     
-      
 
 
     
